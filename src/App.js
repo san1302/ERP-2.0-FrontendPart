@@ -5,7 +5,7 @@ class App extends Component {
   render(){
 
     return(
-       <div className = "bg" >
+       <div className = {classes.bg} >
           
        </div>
     )  
