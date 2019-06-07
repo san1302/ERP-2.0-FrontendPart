@@ -1,12 +1,16 @@
 import React from 'react'
 import classes from './background.css'
-
+import Aux from '../HigherOrderComp/Auxilary'
 const Layout = (props) => {
 
     return(
-        <div className = {classes.bg}>
-          {props.children}
-       </div>
+        <Aux>
+           <div className = {classes.bg}>
+           <div>TaskBar,scrollbar</div>
+               {props.children}
+           </div>
+        </Aux>
+        
     );
     
 }

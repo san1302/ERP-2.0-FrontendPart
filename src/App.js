@@ -1,13 +1,20 @@
 import React,{Component} from 'react';
-import Layout from './Components/Layout/Layout'
-import classes from './Components/Layout/background.css'
+import Layout from './Components/Layout/Layout';
+import ErpBuilder from './Containers/ERPbuilder/erpBuilder'
+import {BrowserRouter} from 'react-router-dom'
+import axios from 'axios'
 class App extends Component {
   render(){
 
     return(
-       <div className = {classes.bg} >
-          
-       </div>
+      <BrowserRouter>
+        <Layout>
+          <ErpBuilder >
+
+          </ErpBuilder>
+        </Layout>
+      </BrowserRouter>
+       
     )  
 
   }

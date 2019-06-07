@@ -4,7 +4,7 @@ html {
 }
 
 .bg {
-    background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg");
+    background:#f6f4f4;
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;

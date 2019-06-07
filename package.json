@@ -7,6 +7,7 @@
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
+    "axios": "^0.19.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.5",
@@ -46,6 +47,8 @@
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -59,7 +62,7 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
-    "start": "set PORT=8000 && node scripts/start.js",
+    "start": "set PORT = 8000 && node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
@@ -79,7 +82,8 @@
     ]
   },
   "devDependencies": {
-    "dotenv": "^8.0.0"
+    "dotenv": "^8.0.0",
+    "react-css-modules": "^4.7.11"
   },
   "jest": {
     "collectCoverageFrom": [
