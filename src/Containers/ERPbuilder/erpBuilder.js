@@ -6,6 +6,9 @@ import {Route,Switch}from 'react-router-dom'
 import StudentPage from '../../Components/StudentPage/StudentPage'
 import TeacherPage from '../../Components/TeacherPage/TeacherPage'
 import Axios from 'axios';
+import StudentMarks from '../../Components/StudentMarks/StudentMarks'
+import {connect} from 'react-redux';
+
 class ErpBuilder extends Component {
     
     state = {
@@ -17,8 +20,14 @@ class ErpBuilder extends Component {
         Student :{
             roll: '',
             password : ''
-        }
+        },
+
+
+
+        teacherInfo: null
     }
+
+    
    
     OnChangeStudentRollNoHandler = (event) =>
     {
@@ -44,7 +53,7 @@ class ErpBuilder extends Component {
     OnStudentLoginSubmit = () => {
 
 
-         Axios.get('http://localhost:8080/feed/posts')
+         Axios.get('http://localhost:8080/feed/students')
          .then(res => {
              if(res.status !== 200)
              throw new Error('Failed to fetch Student Data!');
@@ -63,6 +72,35 @@ class ErpBuilder extends Component {
                 {
                      if(rolls[roll] === this.state.Student.roll)
                      {
+                        Axios.post('http://localhost:8080/feed/student',{
+                            roll: rolls[roll]
+                        })
+                        .then(res => {
+                              if (res.status !== 201)
+                                  throw new Error('Failed to fetch Student Data!');
+
+                             return res.data;
+                        })
+                        .then(resData => {
+
+                            this.props.SetStudentInfo(resData.post); 
+                          /*  this.setState({studentInfo:{
+                                   _id: resData.post._id,
+                                       roll: resData.post.roll,
+                                       password: resData.post.password,
+                                       name: resData.post.name,
+                                       email: resData.post.email,
+                                       branch: resData.post.branch,
+                                       semester: resData.post.semester,
+                                       markId: resData.post.markId,
+                                       // classroomId:
+                           }}); */
+                           console.log(this.props.studentInfo);
+                         
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        }) 
                          console.log('ok you can login');
                          flag = 1;
                          break;
@@ -102,11 +140,12 @@ class ErpBuilder extends Component {
          return (
           <Aux>
 
-          <Route path = "/" exact render = { (Routprops) => <StudentLogin {...Routprops}  state ={this.state.Student} handleRollNo = {this.OnChangeStudentRollNoHandler} handlePassword = {this.OnChangeStudentPasswordHandler} LoginSubmit = {this.OnStudentLoginSubmit}/>}/>
-          <Route path = "/" exact render = { (Routprops) => <TeacherLogin {...Routprops}  state ={this.state.Teacher} handleRollNo = {this.OnChangeTeacherRollNoHandler} handlePassword = {this.OnChangeTeacherPasswordHandler}/>}/>
+          <Route path = "/" exact render = { (Routprops) => <StudentLogin {...Routprops}  InputStudent ={this.state.Student}  handleRollNo = {this.OnChangeStudentRollNoHandler} handlePassword = {this.OnChangeStudentPasswordHandler} LoginSubmit = {this.OnStudentLoginSubmit}/>}/>
+          <Route path = "/" exact render = { (Routprops) => <TeacherLogin {...Routprops}  InputTeacher ={this.state.Teacher} handleRollNo = {this.OnChangeTeacherRollNoHandler} handlePassword = {this.OnChangeTeacherPasswordHandler}/>}/>
           <Switch>
-             <Route path = "/StudentPage/:roll" exact render = {(Routprops) => <StudentPage {...Routprops} roll= {this.state.Student.roll}/>} />
-             <Route path = "/TeacherPage/:roll" exact render = {(Routprops) => <TeacherPage {...Routprops} roll= {this.state.Teacher.roll}/>} /> 
+             <Route path = "/StudentPage/:roll" exact render = {(Routprops) => <StudentPage {...Routprops} StudentInfo ={this.props.studentInfo}/>} />
+             <Route path = "/TeacherPage/:roll" exact render = {(Routprops) => <TeacherPage {...Routprops} TeacherInfo ={this.props.teacherInfo}/>} /> 
+             <Route path = {'/StudentPage/be1026217/StudentMarks'}  render = { (Routprops) => <StudentMarks {...Routprops}/>}/>
           </Switch>
            
              
@@ -116,4 +155,17 @@ class ErpBuilder extends Component {
     
 }
 
-export default ErpBuilder;
+const mapStateToProps = state => {
+    return{
+           studentInfo: state.studentInfo,
+           teacherInfo: state.teacherInfo
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+         return{
+                 SetStudentInfo : (studentInfoFromDataBase) => dispatch({type: 'SetStudentInfo',studentInfo: studentInfoFromDataBase})
+         };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(ErpBuilder);

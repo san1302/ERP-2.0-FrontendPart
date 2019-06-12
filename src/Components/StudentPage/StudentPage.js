@@ -1,31 +1,38 @@
 import React,{Component} from 'react'
-
+import Aux from '../HigherOrderComp/Auxilary'
+import {connect} from 'react-redux';
+import StudentLayoutPage from '../Layout/studentPageLayout';
+import {Route,Switch}from 'react-router-dom';
+import StudentMarks from '../StudentMarks/StudentMarks';
 class  StudentPage extends Component {
 
-       componentDidMount()
-       {  
-        
-       }
 
-       componentDidUpdate()
-       {
-
-       }
     render (){
-          
-        let post = <h1>Page Not Found</h1>
-        if(this.props.match.params.roll === this.props.roll)
-        {
-           post = <p><strong>Welcome to StudentPage...
-                    Please don't refresh the Page</strong></p>
-        }
-     
-        return post;                                    //abhi ismein page reload ke samay roll null ho jata hai and koi bhi ye page access kr sakta hai.
-    }
-     
-     
+        return(
+              <Aux> 
+                 <Switch>
+                     <Route path = {this.props.location.pathname} exact render = { (Routprops) => <StudentLayoutPage {...Routprops}/>}/>
+                     
+                 </Switch>
+                 
+                 
+              </Aux>
 
+        )                                  //abhi ismein page reload ke samay roll null ho jata hai and koi bhi ye page access kr sakta hai.
+    }     
     
 }
 
-export default StudentPage;
+    const mapStateToProps = state => {
+        return {
+            studentInfo: state.studentInfo
+        }
+    }
+
+    const mapDispatchToProps = dispatch => {
+        return {
+            SetStudentInfo: (studentInfoFromDataBase) => dispatch({type: 'SetStudentInfo',studentInfo: studentInfoFromDataBase })
+        };
+    };
+
+export default connect(mapStateToProps,mapDispatchToProps)(StudentPage);
