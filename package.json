@@ -15,6 +15,7 @@
     "babel-preset-react-app": "^9.0.0",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "cpy": "^7.3.0",
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
@@ -51,12 +52,13 @@
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
-    "react-router": "^5.0.0",
-    "react-router-dom": "^5.0.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "redux": "^4.0.1",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.1",
     "semver": "6.0.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
@@ -69,7 +71,7 @@
   },
   "scripts": {
     "start": "set PORT = 8000 && node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js ",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
@@ -90,7 +92,7 @@
   "devDependencies": {
     "dotenv": "^8.0.0",
     "react-css-modules": "^4.7.11",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui": "^2.4.2"
   },
   "jest": {
     "collectCoverageFrom": [

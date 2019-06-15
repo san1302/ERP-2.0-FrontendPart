@@ -1,3 +1,5 @@
+import 'semantic-ui-css/semantic.min.css';
+
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -7,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import {createStore} from 'redux';
 import reducer from './store/reducer';
 import {Provider} from 'react-redux';
-import 'semantic-ui-css/semantic.min.css';
+
 
 
 const store = createStore(reducer);

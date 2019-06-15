@@ -1,3 +1,5 @@
+
+
   const initialstate = {
 
         studentInfo : {
@@ -12,7 +14,17 @@
             classroomId : undefined
         },
 
-        teacherInfo: null
+        teacherInfo:{
+                _id: undefined,
+                roll: undefined,
+                password: undefined,
+                name: undefined,
+                email: undefined,
+                branch: undefined,
+                semester: undefined,
+                classroomId: undefined
+        } ,
+        studentMarks : Map
     };
 
     const reducer = (state = initialstate,action) => {
@@ -20,7 +32,7 @@
         switch (action.type) {
             case 'SetStudentInfo':
                 return{
-                    ...initialstate,
+                    ...state,
                     studentInfo : {
                         _id : action.studentInfo._id,
                          roll: action.studentInfo.roll,
@@ -34,8 +46,33 @@
                     }
 
                 } 
+
+
+             case 'SetTeacherInfo':
+                return{
+                    ...state,
+                    teacherInfo : {
+                        _id : action.teacherInfo._id,
+                        roll: action.teacherInfo.roll,
+                        password: action.teacherInfo.password,
+                        name: action.teacherInfo.name,
+                        email: action.teacherInfo.email,
+                        branch: action.teacherInfo.branch,
+                        semester: action.teacherInfo.semester
+                       // classroomId : action.teacherInfo.
+                    }
+
+                } 
                 
-        
+            case 'SetStudentMarks':
+
+                  var newMap = new Map();
+                  newMap = action.studentMarks;
+                return{
+                      ...state,
+                      studentMarks: newMap
+                }
+
             default:
                 break;
         }

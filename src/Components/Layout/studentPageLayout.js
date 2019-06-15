@@ -4,8 +4,7 @@ import {Link}from 'react-router-dom'
 const StudentPageLayout = (props) =>  {
     return (
        
-          <Link to = { props.location.pathname + '/StudentMarks'}>Marks</Link>
-     
+          <Link onClick = {props.StudentMarks} to = { props.location.pathname + '/StudentMarks'}>Marks</Link>
     );
 }
 

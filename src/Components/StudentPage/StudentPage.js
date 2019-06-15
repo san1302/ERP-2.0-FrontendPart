@@ -3,7 +3,7 @@ import Aux from '../HigherOrderComp/Auxilary'
 import {connect} from 'react-redux';
 import StudentLayoutPage from '../Layout/studentPageLayout';
 import {Route,Switch}from 'react-router-dom';
-import StudentMarks from '../StudentMarks/StudentMarks';
+
 class  StudentPage extends Component {
 
 
@@ -11,8 +11,7 @@ class  StudentPage extends Component {
         return(
               <Aux> 
                  <Switch>
-                     <Route path = {this.props.location.pathname} exact render = { (Routprops) => <StudentLayoutPage {...Routprops}/>}/>
-                     
+                     <Route path = {this.props.location.pathname} exact render = { (Routprops) => <StudentLayoutPage {...Routprops} StudentMarks = {this.props.StudentMarks}/>}/>    
                  </Switch>
                  
                  

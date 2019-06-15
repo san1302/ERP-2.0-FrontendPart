@@ -1,31 +1,41 @@
 import React,{Component} from 'react'
+import Aux from '../HigherOrderComp/Auxilary'
+import {connect} from 'react-redux';
+import TeacherLayoutPage from '../Layout/teacherPageLayout';
+import {Route,Switch}from 'react-router-dom';
+import Axios from 'axios';
+
 
 class  TeacherPage extends Component {
+ 
+    
 
-       componentDidMount()
-       {  
-        
-       }
 
-       componentDidUpdate()
-       {
-
-       }
     render (){
-          
-        let post = <h1>Page Not Found</h1>
-        if(this.props.match.params.roll === this.props.roll)
-        {
-           post = <p><strong>Welcome to TeacherPage...
-                    Please don't refresh the Page</strong></p>
-        }
-     
-        return post;                                    //abhi ismein page reload ke samay roll null ho jata hai and koi bhi ye page access kr sakta hai.
-    }
-     
-     
+        return(
+              <Aux> 
+                 <Switch>
+                     <Route path = {this.props.location.pathname} exact render = { (Routprops) => <TeacherLayoutPage {...Routprops} />}/>    
+                 </Switch>
+                 
+                 
+              </Aux>
 
+        )                                  //abhi ismein page reload ke samay roll null ho jata hai and koi bhi ye page access kr sakta hai.
+    }     
     
 }
 
-export default TeacherPage;
+    const mapStateToProps = state => {
+        return {
+            teacherInfo: state.teacherInfo
+        }
+    }
+
+    const mapDispatchToProps = dispatch => {
+        return {
+            SetTeacherInfo: (teacherInfoFromDataBase) => dispatch({type: 'SetTeacherInfo',TeacherInfo: teacherInfoFromDataBase })
+        };
+    };
+
+export default connect(mapStateToProps,mapDispatchToProps)(TeacherPage);
