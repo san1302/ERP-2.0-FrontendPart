@@ -22,8 +22,12 @@ class ErpBuilder extends Component {
         Student :{
             roll: '',
             password : ''
+        },
+       
+        TeacherClassroom :{
+              branch : '',
+              semester : undefined
         }
-
 
     }
 
@@ -209,8 +213,8 @@ class ErpBuilder extends Component {
      TeachergetStudentsList = () =>{
          Axios.post('http://localhost:8080/feed/getStudentsListFromClassroom',{
              teacherId:this.props.teacherInfo._id,
-             branch: 'information technology',
-             semester : 4
+             branch: this.state.TeacherClassroom.branch,
+             semester : this.state.TeacherClassroom.semester
          })
          .then(res => {
              if(res.status === 201)
@@ -223,6 +227,17 @@ class ErpBuilder extends Component {
              }
          })   
          
+    }
+
+    OnChangeClassroomHandler = (event) => {
+
+        this.setState({
+            TeacherClassroom: {
+                ...this.state.TeacherClassroom,
+                 [event.target.name]: event.target.value
+            }
+
+        })
     }
 
    
@@ -238,7 +253,7 @@ class ErpBuilder extends Component {
              <Route path = "/StudentPage/:roll" exact render = {(Routprops) => <StudentPage {...Routprops} StudentInfo ={this.props.studentInfo} StudentMarks = {this.StudentMarks} />} />
              <Route path = "/TeacherPage/:roll" exact render = {(Routprops) => <TeacherPage {...Routprops} TeacherInfo ={this.props.teacherInfo}/>} /> 
              <Route path = {'/StudentPage/:roll/StudentMarks'}  render = { (Routprops) => <StudentMarks {...Routprops} getStudentMarks = {this.getStudentMarks}/>}/>
-             <Route path = {'/TeacherPage/:roll/TeacherMarksUpload'}  render = { (Routprops) => <TeacherMarksUplaod {...Routprops} TeachergetStudentsList = {this.TeachergetStudentsList} />}/>
+             <Route path = {'/TeacherPage/:roll/TeacherMarksUpload'}  render = { (Routprops) => <TeacherMarksUplaod {...Routprops} TeachergetStudentsList = {this.TeachergetStudentsList}  InputTeacherClassroom ={this.state.TeacherClassroom} handleChange = {this. OnChangeClassroomHandler}/>}/>
           </Switch>
            
              

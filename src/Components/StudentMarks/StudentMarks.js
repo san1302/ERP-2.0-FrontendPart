@@ -18,7 +18,7 @@ import {connect} from 'react-redux'
   'black',
 ] */
 
-const color = 'teal'
+const color = 'black'
 
 
 
@@ -39,7 +39,7 @@ const StudentMarks = (props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {props.getStudentMarks()}
+          
         </Table.Body>
       </Table>
     

@@ -1,7 +1,9 @@
 import React from 'react'
 import { Icon, Label, Menu, Table , Button, Form, Segment,Input } from 'semantic-ui-react';
-import {Link}from 'react-router-dom'
+import {Link,Route}from 'react-router-dom'
 import {connect} from 'react-redux'
+import StudentMarks from '../StudentMarks/StudentMarks'
+import ClassroomMarksTable from './ClassroomMarksTable'
 
 /* const colors = [
   'red',
@@ -20,23 +22,24 @@ import {connect} from 'react-redux'
 ] */
 
 
-
 const color = 'teal'
 const TeacherMarksUpload = (props) => {
+   
    
   // console.log(Marks)
 
     return (
-           <Segment inverted>
+      <div>
+    <Segment inverted>
     <Form inverted>
       <Form.Group widths='equal'>
-        <Form.Input fluid list='branches' type = "text" label = 'branch' placeholder='Choose the branch which you want to access' />
+        <Form.Input fluid list='branches' name = "branch" type = "text" label = 'branch' value = {props.InputTeacherClassroom.branch} placeholder='Choose the branch which you want to access' onChange={props.handleChange}/>
         <datalist id='branches'>
-        <option value='Information Technology' />
+        <option value='information technology' />
         <option value='Computer Science' />
         <option value='Electronics & Communication' />
         </datalist>
-       <Form.Input fluid list='semester' type="number" label = 'semester' placeholder='Choose the semester which you want to access' />
+       <Form.Input fluid list='semester' name = "semester" type="number" label = 'semester' value = {props.InputTeacherClassroom.semester} placeholder='Choose the semester which you want to access' onChange={props.handleChange} />
         <datalist id='semester'>
         <option value= '1'/>
         <option value='2'/>
@@ -47,11 +50,14 @@ const TeacherMarksUpload = (props) => {
         </datalist>
       </Form.Group>
       <Form.Checkbox label='I agree to the Terms and Conditions' />
-       <Button as = {Link} onClick ={props.TeachergetStudentsList()} to = {''}>Submit</Button>
+       <Button as = {Link} onClick ={props.TeachergetStudentsList} to = {props.match.url + '/StudentMarksTable'}>Submit</Button>
     </Form>
    </Segment>
-
-     )
+     <Route path = "/TeacherPage/:roll/TeacherMarksUpload/StudentMarksTable"  render = { (Routprops) => <ClassroomMarksTable {...Routprops} />}/>
+   </div>
+     
+      
+    )
 
 }
 

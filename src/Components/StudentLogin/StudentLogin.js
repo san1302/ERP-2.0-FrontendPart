@@ -7,7 +7,7 @@ const StudentLogin = (props) => {
               <Form>
                 <Form.Field>
                   <Label as ='a' color = 'black' size = 'large' ribbon htmlFor = 'Studentrollno'>RollNo</Label>
-                  <Input fluid style = {{width : "200px"}} placeholder = 'be/10001/15' id = 'Studentrollno' type ='text' name = 'rollno' value = {props.InputStudent.roll} onChange = {props.handleRollNo} ></Input>
+                  <Input fluid style = {{width : "200px"}} placeholder = 'be1000115' id = 'Studentrollno' type ='text' name = 'rollno' value = {props.InputStudent.roll} onChange = {props.handleRollNo} ></Input>
                 </Form.Field>
                 <Form.Field>
                   <Label as ='a' color = 'black' size = 'large' ribbon htmlFor = 'Studentpassword'>Password</Label>
