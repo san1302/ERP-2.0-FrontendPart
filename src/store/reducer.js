@@ -24,7 +24,13 @@
                 semester: undefined,
                 classroomId: undefined
         } ,
-        studentMarks : Map
+        studentMarks : [],
+        classroom : {
+            studentId : [],
+            teacherId : []
+        },
+
+        classroomMarksTable : []
     };
 
     const reducer = (state = initialstate,action) => {
@@ -65,12 +71,33 @@
                 } 
                 
             case 'SetStudentMarks':
-
-                  var newMap = new Map();
-                  newMap = action.studentMarks;
+                      
+                   var newArray = [];
+                   newArray = newArray.concat(action.studentMarks)
                 return{
                       ...state,
-                      studentMarks: newMap
+                      studentMarks:newArray
+                }
+            
+            case 'SetClassroomInfo':
+                var newStudentIdArray = [];
+                var newTeacherIdArray = [];
+                newStudentIdArray = newStudentIdArray.concat(action.ClassroomInfo.studentId)
+                newTeacherIdArray = newTeacherIdArray.concat(action.ClassroomInfo.teacherId);
+                return{
+                     ...state,
+                     classroom : {
+                         studentId:newStudentIdArray,
+                         teacherId: newTeacherIdArray
+                     }
+                }
+
+            case 'SetClassroomMarksTable':
+                var newClassroomMarksTable = [];
+                newClassroomMarksTable = newClassroomMarksTable.concat(action.ClassroomMarksTableInfo)
+                return{
+                       ...state,
+                       classroomMarksTable: newClassroomMarksTable
                 }
 
             default:

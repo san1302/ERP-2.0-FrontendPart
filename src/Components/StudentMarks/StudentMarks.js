@@ -39,7 +39,7 @@ const StudentMarks = (props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          
+          {props.getStudentMarks()}
         </Table.Body>
       </Table>
     

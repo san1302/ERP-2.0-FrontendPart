@@ -10,7 +10,7 @@ import StudentMarks from '../../Components/StudentMarks/StudentMarks'
 import TeacherMarksUplaod from '../../Components/TeacherMarksUpload/TeacherMarksUpload';
 import {connect} from 'react-redux';
 import {Table} from 'semantic-ui-react'
- var marksList = new Map();
+ var marksList = [];
 class ErpBuilder extends Component {
     
     state = {
@@ -27,7 +27,11 @@ class ErpBuilder extends Component {
         TeacherClassroom :{
               branch : '',
               semester : undefined
-        }
+        },
+
+        Classroom : [
+            
+        ]
 
     }
 
@@ -124,16 +128,27 @@ class ErpBuilder extends Component {
       Axios.post('http://localhost:8080/feed/student/mark',{
              markId : this.props.studentInfo.markId
         })
-        .then(mark => {
-            let marks = mark.data.mark;
-            for(let i in marks)
-            {
-                //console.log(i + ':' + marks[i]);
-                 marksList.set(i,marks[i]);
-            }
-            //console.log(mark.data.mark);
-            console.log(marksList);
-            this.props.SetStudentMarks(marksList);
+        .then(res => {
+            let marks = res.data.mark;
+
+         /*  const SubjectList = marks.map(markObject => {
+                return markObject.subject;
+            })
+
+          const MarkList = marks.map(markObject => {
+              return markObject.mark;
+          })
+
+          console.log(SubjectList);
+          console.log(MarkList); */
+             
+            console.log(marks);
+          marksList = marks.Marks.map(markObject => {
+             // console.log(markObject.subject)
+              return {subject :markObject.subject,mark:markObject.mark}
+          }) 
+           
+            this.props.SetStudentMarks(marksList); 
         })
         .catch(err => console.log(err));
         
@@ -141,28 +156,13 @@ class ErpBuilder extends Component {
     }
 
       getStudentMarks = () => {
-
-          /* Axios.post('http://localhost:8080/feed/student/mark', {
-                  markId: this.props.studentInfo.markId
-              })
-              .then(mark => {
-                  let marks = mark.data.mark;
-                  for (let i in marks) {
-                      //console.log(i + ':' + marks[i]);
-                      marksList.set(i, marks[i]);
-                  }
-                  //console.log(mark.data.mark);
-                  console.log(marksList);
-                  this.props.SetStudentMarks(marksList);
-              })
-              .catch(err => console.log(err)); */
              var items = []
-              for(var [key,val] of marksList.entries())
-              {
-                  
-                  items.push( <Table.Row key = {key}><Table.Cell>{key}</Table.Cell><Table.Cell>{val}</Table.Cell></Table.Row>)
-              }
-
+            //  console.log(this.props.marksList)
+             items = this.props.marksList.map(MarkObject => {   
+                 return  (<Table.Row key = {MarkObject.subject}><Table.Cell>{MarkObject.subject}</Table.Cell><Table.Cell>{MarkObject.mark}</Table.Cell></Table.Row>)
+             })
+    
+               //console.log(items)
               return items;
       }
 
@@ -219,7 +219,21 @@ class ErpBuilder extends Component {
          .then(res => {
              if(res.status === 201)
              {
-                  console.log(res.data);
+                 let resDataPost = res.data.post;
+                 this.props.SetClassroomInfo(resDataPost);
+                // console.log(this.props.classroom);
+                  Axios.post('http://localhost:8080/feed/getClassroomTableData', {
+                      classroomId: resDataPost._id,
+                  })
+                  .then(res=>{
+                      if (res.status === 201)
+                      {
+                          let ClassroomTableData = res.data.post;
+                          this.props.SetClassroomMarksTable(ClassroomTableData);
+                           console.log(this.props.classroomMarksTableInfo)
+                      }
+                  })
+
              }
 
              else{
@@ -228,6 +242,8 @@ class ErpBuilder extends Component {
          })   
          
     }
+
+   
 
     OnChangeClassroomHandler = (event) => {
 
@@ -239,6 +255,7 @@ class ErpBuilder extends Component {
 
         })
     }
+
 
    
      
@@ -253,7 +270,7 @@ class ErpBuilder extends Component {
              <Route path = "/StudentPage/:roll" exact render = {(Routprops) => <StudentPage {...Routprops} StudentInfo ={this.props.studentInfo} StudentMarks = {this.StudentMarks} />} />
              <Route path = "/TeacherPage/:roll" exact render = {(Routprops) => <TeacherPage {...Routprops} TeacherInfo ={this.props.teacherInfo}/>} /> 
              <Route path = {'/StudentPage/:roll/StudentMarks'}  render = { (Routprops) => <StudentMarks {...Routprops} getStudentMarks = {this.getStudentMarks}/>}/>
-             <Route path = {'/TeacherPage/:roll/TeacherMarksUpload'}  render = { (Routprops) => <TeacherMarksUplaod {...Routprops} TeachergetStudentsList = {this.TeachergetStudentsList}  InputTeacherClassroom ={this.state.TeacherClassroom} handleChange = {this. OnChangeClassroomHandler}/>}/>
+             <Route path = {'/TeacherPage/:roll/TeacherMarksUpload'}  render = { (Routprops) => <TeacherMarksUplaod {...Routprops} TeachergetStudentsList = {this.TeachergetStudentsList}  InputTeacherClassroom ={this.state.TeacherClassroom} handleChange = {this.OnChangeClassroomHandler}/>}/>
           </Switch>
            
              
@@ -266,7 +283,10 @@ class ErpBuilder extends Component {
 const mapStateToProps = state => {
     return{
            studentInfo: state.studentInfo,
-           teacherInfo: state.teacherInfo
+           teacherInfo: state.teacherInfo,
+           marksList: state.studentMarks,
+           classroom: state.classroom,
+           classroomMarksTableInfo: state.classroomMarksTable
     }
 }
 
@@ -275,6 +295,8 @@ const mapDispatchToProps = dispatch => {
                  SetStudentInfo : (studentInfoFromDataBase) => dispatch({type: 'SetStudentInfo',studentInfo: studentInfoFromDataBase}),
                  SetStudentMarks : (markList) => dispatch({type:'SetStudentMarks',studentMarks :markList }) ,
                  SetTeacherInfo : (teacherInfoFromDataBase) => dispatch({type: 'SetTeacherInfo',teacherInfo: teacherInfoFromDataBase}),
+                 SetClassroomInfo : (ClassroomFromDataBase) => dispatch({type:'SetClassroomInfo',ClassroomInfo :ClassroomFromDataBase}),
+                 SetClassroomMarksTable : (ClassroomMarksTableFromDataBase) => dispatch({type:'SetClassroomMarksTable',ClassroomMarksTableInfo :ClassroomMarksTableFromDataBase})
          };
 };
 

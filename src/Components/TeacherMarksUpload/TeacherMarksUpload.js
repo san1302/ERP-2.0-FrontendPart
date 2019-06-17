@@ -26,6 +26,7 @@ const color = 'teal'
 const TeacherMarksUpload = (props) => {
    
    
+   
   // console.log(Marks)
 
     return (
@@ -53,7 +54,7 @@ const TeacherMarksUpload = (props) => {
        <Button as = {Link} onClick ={props.TeachergetStudentsList} to = {props.match.url + '/StudentMarksTable'}>Submit</Button>
     </Form>
    </Segment>
-     <Route path = "/TeacherPage/:roll/TeacherMarksUpload/StudentMarksTable"  render = { (Routprops) => <ClassroomMarksTable {...Routprops} />}/>
+     <Route path = "/TeacherPage/:roll/TeacherMarksUpload/StudentMarksTable" exact  render = { (Routprops) => <ClassroomMarksTable {...Routprops} />}/>
    </div>
      
       

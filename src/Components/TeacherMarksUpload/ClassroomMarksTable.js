@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import  ReactTable from "react-table";
 import "react-table/react-table.css";
 import { Icon, Label, Menu, Table,Input } from 'semantic-ui-react';
+import {connect} from 'react-redux';
 // Import Hamoni Syncimport Hamoni from "hamoni-sync";
 const ClassroomMarksTable = (props) => {
     
@@ -9,22 +10,38 @@ const ClassroomMarksTable = (props) => {
     <Table celled inverted selectable>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell>STUDENT ROLL NUMBER</Table.HeaderCell>
-        <Table.HeaderCell>DBMS</Table.HeaderCell>
-           {/* SUBJECTS KI LIST DALO */}
-        
+        <Table.HeaderCell width = "4">STUDENT ROLL NUMBER</Table.HeaderCell>
+        {
+           props.classroomMarksTableInfo.slice(0,1).map(studentDetails => {
+                return studentDetails.markSubject.map(marksList => {
+                          return (<Table.HeaderCell>{marksList.subject}</Table.HeaderCell>)
+                })
+               
+           })
+        }
       </Table.Row>
     </Table.Header>
     <Table.Body>
-      <Table.Row>
-        <Table.Cell>John</Table.Cell>
-        <Table.Cell ><Input style = {{width : "80px"}} placeholder = 'x' id = 'n' value = {0} type ='number' name = 'n'  ></Input></Table.Cell>  {/* LIST OF STUDENT ROLL, HAR SUBJECT KE MARKS */}
-
-        
-      </Table.Row>
+    
+          {
+             props.classroomMarksTableInfo.map(StudentDetails => {
+                  return ( <Table.Row ><Table.Cell>{StudentDetails.roll}</Table.Cell>{StudentDetails.markSubject.map(marksList =>{
+                    return (<Table.Cell ><Input style = {{width : "80px"}} placeholder = 'x'  id = 'n' value = {marksList.mark} type ='number' name = 'n'  ></Input></Table.Cell>)
+                  })}</Table.Row>)
+             })
+          }
+      {/*  <Table.Cell ><Input style = {{width : "80px"}} placeholder = 'x' id = 'n' value = {0} type ='number' name = 'n'  ></Input></Table.Cell> */}
     </Table.Body>
     </Table>
     )
    
 }
-export default ClassroomMarksTable;
+
+const mapStateToProps = state => {
+  return {
+    marksList: state.studentMarks,
+    classroom: state.classroom,
+    classroomMarksTableInfo: state.classroomMarksTable
+  }
+}
+export default connect(mapStateToProps)(ClassroomMarksTable);
