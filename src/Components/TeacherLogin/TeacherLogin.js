@@ -19,7 +19,7 @@ const TeacherLogin = (props) => {
                   <Checkbox label='I agree to the Terms and Conditions' />
                 </Form.Field>
                 <Button as = {Link} onClick ={props.LoginSubmit} to = {'/TeacherPage/' + props.InputTeacher.roll}>Submit</Button>
-           </Form>
+         </Form>
          
         
     )

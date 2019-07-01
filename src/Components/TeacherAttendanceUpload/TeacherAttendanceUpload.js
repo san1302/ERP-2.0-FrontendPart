@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon, Label, Menu, Table , Button, Form, Segment,Input } from 'semantic-ui-react';
 import {Link,Route}from 'react-router-dom'
 import {connect} from 'react-redux'
-import ClassroomMarksTable from './ClassroomMarksTable'
+import ClassroomAttendanceTable from './ClassroomAttendanceTable'
 
 /* const colors = [
   'red',
@@ -20,11 +20,13 @@ import ClassroomMarksTable from './ClassroomMarksTable'
   'black',
 ] */
 
-const TeacherMarksUpload = (props) => {
+
+const color = 'teal'
+const TeacherAttendanceUpload = (props) => {
    
    
    
-  // console.log(Marks)
+  // console.log(Attendance)
 
     return (
       <div>
@@ -40,18 +42,24 @@ const TeacherMarksUpload = (props) => {
        <Form.Input fluid list='semester' name = "semester" type="number" label = 'semester' value = {props.InputTeacherClassroom.semester} placeholder='Choose the semester which you want to access' onChange={props.handleTeacherData} />
         <datalist id='semester'>
         <option value= '1'/>
-        <option value='2'/>
+        <option value='2' />
         <option value='3' />
         <option value='4' />
         <option value='5' />
         <option value='6' />
         </datalist>
+       <Form.Input fluid list='subject' name = "subject" type="text" label = 'subject' value = {props.InputTeacherClassroom.subject} placeholder='Choose the subject which you want to access' onChange={props.handleTeacherData} />
+        <datalist id='subject'>
+        {props.classroomInfo.subjects.map(subject => {
+            return <option value= {subject}/>
+        })}
+        </datalist>
       </Form.Group>
       <Form.Checkbox label='I agree to the Terms and Conditions' />
-       <Button as = {Link} onClick ={props.TeachergetStudentsListForMarks} to = {props.match.url + '/StudentMarksTable'}>Submit</Button>
+       <Button as = {Link} onClick ={props.TeachergetStudentsListForAttendance} to = {props.match.url + '/StudentAttendanceTable'}>Submit</Button>
     </Form>
    </Segment>
-     <Route path = "/TeacherPage/:roll/TeacherMarksUpload/StudentMarksTable" exact  render = { (Routprops) => <ClassroomMarksTable {...Routprops} classroomMarksTableState = {props.classroomMarksTableState} handleChange ={props.handleChange} UpdateClassroomTable = {props.UpdateClassroomTable}/>}/>
+     <Route path = "/TeacherPage/:roll/TeacherAttendanceUpload/StudentAttendanceTable" exact  render = { (Routprops) => <ClassroomAttendanceTable {...Routprops} classroomAttendanceTableState = {props.classroomAttendanceTableState} handleChange ={props.handleChange} UpdateClassroomTable = {props.UpdateClassroomTable} InputTeacherClassroom={props.InputTeacherClassroom}/>}/>
    </div>
      
       
@@ -61,7 +69,8 @@ const TeacherMarksUpload = (props) => {
 
 const mapStateToProps = state => {
     return{
-           teacherInfo: state.teacherInfo
+           teacherInfo: state.teacherInfo,
+           classroomInfo : state.classroom
     }
 }
 
@@ -71,4 +80,4 @@ const mapDispatchToProps = dispatch => {
          };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(TeacherMarksUpload);
+export default connect(mapStateToProps,mapDispatchToProps)(TeacherAttendanceUpload);

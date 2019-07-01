@@ -1,7 +1,12 @@
 
 
   const initialstate = {
-
+        
+        token :{
+            isAuth: false ,
+            token: null ,
+            userId: null
+        } ,
         studentInfo : {
             _id: undefined,
             roll: undefined,
@@ -25,12 +30,16 @@
                 classroomId: undefined
         } ,
         studentMarks : [],
+        studentAttendance : [],
         classroom : {
             studentId : [],
-            teacherId : []
+            teacherId : [],
+            subjects :[]
         },
 
-        classroomMarksTable : []
+        classroomMarksTable : [],
+
+       classroomAttendanceTable:[]
     };
 
     const reducer = (state = initialstate,action) => {
@@ -78,17 +87,28 @@
                       ...state,
                       studentMarks:newArray
                 }
+
+            case 'SetStudentAttendance':
+                var newArray = [];
+                   newArray = newArray.concat(action.studentAttendance)
+                return{
+                      ...state,
+                      studentAttendance:newArray
+                }
             
             case 'SetClassroomInfo':
                 var newStudentIdArray = [];
                 var newTeacherIdArray = [];
+                var newSubjectsArray = [];
                 newStudentIdArray = newStudentIdArray.concat(action.ClassroomInfo.studentId)
                 newTeacherIdArray = newTeacherIdArray.concat(action.ClassroomInfo.teacherId);
+                newSubjectsArray = newSubjectsArray.concat(action.ClassroomInfo.subjects);
                 return{
                      ...state,
                      classroom : {
-                         studentId:newStudentIdArray,
-                         teacherId: newTeacherIdArray
+                         studentId: newStudentIdArray,
+                         teacherId: newTeacherIdArray,
+                         subjects : newSubjectsArray
                      }
                 }
 
@@ -98,6 +118,24 @@
                 return{
                        ...state,
                        classroomMarksTable: newClassroomMarksTable
+                }
+            
+            case 'SetClassroomAttendanceTable':
+                var newClassroomAttendanceTable = [];
+                newClassroomAttendanceTable = newClassroomAttendanceTable.concat(action.ClassroomAttendanceTableInfo)
+                return{
+                       ...state,
+                       classroomAttendanceTable: newClassroomAttendanceTable
+                }
+
+            case 'SetTokenInfo':
+                return{
+                    ...state,
+                    token : {
+                           isAuth: action.TokenInfo.isAuth,
+                            token: action.TokenInfo.token,
+                            userId: action.TokenInfo.userId
+                     }
                 }
 
             default:

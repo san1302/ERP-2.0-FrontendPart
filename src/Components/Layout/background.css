@@ -1,12 +1,35 @@
-body,
-html {
-    height: 100%;
+
+.toolbar{
+     position: fixed;
+     top: 5px;
+     left: 50px;
+     width: 80%;
+     margin-right:40px;
+     background: rgb(255, 29, 29);
+     height: 175px
+   
 }
 
-.bg {
-    background:#f6f4f4;
-    height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.spacer{
+    flex: 0.98
+}
+.toolbar_navigation{
+      display: flex;
+      align-items: center;
+      height: 100%;
+}
+
+.toolbar_logo{
+    margin-left: 50px;
+}
+
+.toolbar_navigation_items ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    
+}
+.toolbar_navigation_items link{
+    color:white
 }
