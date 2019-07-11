@@ -1,12 +1,10 @@
 
 .toolbar{
      position: fixed;
-     top: 5px;
-     left: 50px;
-     width: 80%;
-     margin-right:40px;
-     background: rgb(255, 29, 29);
-     height: 175px
+     width: 43%;
+     background: black ;
+     height: 900px;
+     top: 0%
    
 }
 

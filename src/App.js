@@ -6,6 +6,7 @@ import {BrowserRouter} from 'react-router-dom'
 import axios from 'axios'
 import classes from './App.css'
 import {connect} from 'react-redux';
+import {Route,Switch}from 'react-router-dom'
 class App extends Component {
 
 
@@ -53,16 +54,12 @@ class App extends Component {
       
       <BrowserRouter>
       
-        <Layout>
-          <ErpBuilder >
-
-          </ErpBuilder>
+       <Route path = {'/'} exact render = { (Routprops) => <Layout {...Routprops} />}/>
         
-        </Layout>
-        
-      </BrowserRouter>
-     
-       
+        <ErpBuilder >
+        </ErpBuilder>
+      </BrowserRouter>   
+  
     )  
 
   }

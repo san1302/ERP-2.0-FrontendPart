@@ -31,6 +31,7 @@ import { async } from 'q';
 
  ]
  const socket = openSocket('http://localhost:8080');
+ 
 class  StudentMessageBox extends Component {
       
        state = {
@@ -46,7 +47,7 @@ class  StudentMessageBox extends Component {
              messages:[],
 
              teacherList : [],
-             MessagesDocs : []
+             MessagesDocs : [],
        }
 
       async componentWillMount()
@@ -120,7 +121,7 @@ class  StudentMessageBox extends Component {
 
      PrintTeachersList = (docs) => {
             var arr = docs.map((doc,i) => {
-                return( <List.Item as = {Link} to = { this.props.location.pathname + '/' + doc.teacherRoll}>
+                return( <List.Item as = {Link} to = { '/StudentPage/' + this.state.dataMessage.from +'/StudentMessageBox/' + doc.teacherRoll} >
                     <Image avatar src={images[i]} />
                     <List.Content>
                         <List.Header>{doc.teacherRoll}</List.Header>
@@ -260,11 +261,27 @@ class  StudentMessageBox extends Component {
                      <Route path = {this.props.location.pathname} exact render = { (Routprops) => <StudentLayoutPage {...Routprops} StudentMarks = {this.props.StudentMarks} StudentAttendance = {this.props.StudentAttendance}/>}/>    
                  </Switch> */}  
                  
-                 <List animated verticalAlign='middle' size = 'huge' floated = 'left' link>
-
+                 
+                   <main>
+              <Grid>
+                <Grid.Column width={5} >
+                  <List animated verticalAlign='middle' size = 'huge' floated = 'left' link>
                     { this.state.teacherList.map(teacherID => {
                         return teacherID;
                     })}
+                </List>
+                </Grid.Column>
+
+                <Grid.Column stretched width={10}>
+                <Segment raised color = 'blue' compact style = {{height:'50px'}}>
+                    <Switch>
+                       <Route path = '/StudentPage/be1026217/StudentMessageBox/:Roll' exact  render = { (Routprops) => <IndividualChatbox {...Routprops} stateOfStudent = {this.state} PrintMessages = {this.PrintMessages} OnChangeMessageHandler = {this.OnChangeMessageHandler}  SendMessage={this.SendMessage} PrintMessage = {this.PrintMessage} socket = {socket}/>}/>
+                  </Switch>
+                </Segment>
+                </Grid.Column>
+            </Grid>
+          </main> 
+
                    {/*  <List.Item>
                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
                     <List.Content>
@@ -283,10 +300,10 @@ class  StudentMessageBox extends Component {
                         <List.Header>Daniel</List.Header>
                     </List.Content>
                     </List.Item> */}
-                 </List>
+                 
                   
                   
-                       <Route path = '/StudentPage/be1026217/StudentMessageBox/:Roll' exact  render = { (Routprops) => <IndividualChatbox {...Routprops} stateOfStudent = {this.state} PrintMessages = {this.PrintMessages} OnChangeMessageHandler = {this.OnChangeMessageHandler}  SendMessage={this.SendMessage} PrintMessage = {this.PrintMessage} socket = {socket}/>}/>
+                 
                   
                    
                  

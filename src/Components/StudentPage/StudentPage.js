@@ -13,7 +13,7 @@ class  StudentPage extends Component {
 
       async componentWillMount()
        {
-        // console.log(localStorage.getItem('token'))
+        console.log('In student page')
          await Axios.post('http://localhost:8080/feed/StudentInfo',{},{
               headers: {
                   Authorization: 'Bearer ' + localStorage.getItem('token')

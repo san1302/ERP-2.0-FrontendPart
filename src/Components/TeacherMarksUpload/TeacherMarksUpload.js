@@ -51,7 +51,8 @@ const TeacherMarksUpload = (props) => {
        <Button as = {Link} onClick ={props.TeachergetStudentsListForMarks} to = {props.match.url + '/StudentMarksTable'}>Submit</Button>
     </Form>
    </Segment>
-     <Route path = "/TeacherPage/:roll/TeacherMarksUpload/StudentMarksTable" exact  render = { (Routprops) => <ClassroomMarksTable {...Routprops} classroomMarksTableState = {props.classroomMarksTableState} handleChange ={props.handleChange} UpdateClassroomTable = {props.UpdateClassroomTable}/>}/>
+    <Route path = "/TeacherPage/:roll/TeacherMarksUpload/StudentMarksTable" exact render = { (Routprops) => <ClassroomMarksTable {...Routprops} classroomMarksTableState = {props.classroomMarksTableState} handleChange ={props.handleChange} UpdateClassroomTable = {props.UpdateClassroomTable}/>}/>
+     
    </div>
      
       

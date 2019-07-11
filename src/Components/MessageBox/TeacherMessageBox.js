@@ -261,12 +261,25 @@ class  TeacherMessageBox extends Component {
                  {/* <Switch>
                      <Route path = {this.props.location.pathname} exact render = { (Routprops) => <StudentLayoutPage {...Routprops} StudentMarks = {this.props.StudentMarks} StudentAttendance = {this.props.StudentAttendance}/>}/>    
                  </Switch> */}  
-                 
-                 <List animated verticalAlign='middle' size = 'huge' floated = 'left' link>
-
+                  <Grid>
+                <Grid.Column width={5} >
+                  <List animated verticalAlign='middle' size = 'huge' floated = 'left' link>
                     { this.state.studentList.map(studentID => {
                         return studentID;
                     })}
+                </List>
+                </Grid.Column>
+
+                <Grid.Column stretched width={10}>
+                <Segment raised color = 'blue' compact style = {{height:'50px'}}>
+                    <Switch>
+                       <Route path = '/TeacherPage/:roll/TeacherMessageBox/:Roll' exact  render = { (Routprops) => <TeacherIndividualChatbox {...Routprops} stateOfTeacher = {this.state} PrintMessages = {this.PrintMessages} OnChangeMessageHandler = {this.OnChangeMessageHandler}  SendMessage={this.SendMessage} PrintMessage = {this.PrintMessage} socket = {socket}/>}/>
+                  </Switch>
+                </Segment>
+                </Grid.Column>
+            </Grid>
+                
+                   
                    {/*  <List.Item>
                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
                     <List.Content>
@@ -284,12 +297,8 @@ class  TeacherMessageBox extends Component {
                     <List.Content>
                         <List.Header>Daniel</List.Header>
                     </List.Content>
-                    </List.Item> */}
-                 </List>
-                  
-                  
-                       <Route path = '/TeacherPage/:roll/TeacherMessageBox/:Roll' exact  render = { (Routprops) => <TeacherIndividualChatbox {...Routprops} stateOfTeacher = {this.state} PrintMessages = {this.PrintMessages} OnChangeMessageHandler = {this.OnChangeMessageHandler}  SendMessage={this.SendMessage} PrintMessage = {this.PrintMessage} socket = {socket}/>}/>
-                  
+                    </List.Item> 
+                     */}
                    
                  
                   

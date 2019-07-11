@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 const ClassroomMarksTable = (props) => {
     
     return(
-    <Table celled inverted selectable>
+     <Table celled inverted selectable>
     <Table.Header>
       <Table.Row>
         <Table.HeaderCell width = "4">STUDENT ROLL NUMBER</Table.HeaderCell>
@@ -40,7 +40,8 @@ const ClassroomMarksTable = (props) => {
         </Table.HeaderCell>
       </Table.Row>
     </Table.Footer>
-    </Table>
+    </Table> 
+    
     )
    
 }
