@@ -1,0 +1,16 @@
+.teacherData {
+    position: fixed;
+    width: 75%;
+    height: 100%;
+    margin-top: 16px;
+    margin-left: 370px;
+
+}
+
+.studentData {
+    position: fixed;
+    width: 75%;
+    height: 100%;
+    margin-top: 16px;
+    margin-left: 350px;
+}

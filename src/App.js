@@ -7,6 +7,7 @@ import axios from 'axios'
 import classes from './App.css'
 import {connect} from 'react-redux';
 import {Route,Switch}from 'react-router-dom'
+import NavigationBar from './Containers/ERPbuilder/NavigationBar';
 class App extends Component {
 
 
@@ -53,11 +54,16 @@ class App extends Component {
     return(
       
       <BrowserRouter>
-      
-       <Route path = {'/'} exact render = { (Routprops) => <Layout {...Routprops} />}/>
+      <Switch>
+          <Route path = {'/'} exact render = { (Routprops) => <Layout {...Routprops} />}/>
+          <Route path = {'/TeacherPage'}  render = { (Routprops) => <NavigationBar {...Routprops} />}/>
+          <Route path = {'/StudentPage'}  render = { (Routprops) => <NavigationBar {...Routprops} />}/>
+      </Switch>
+        <div className = {classes.back} >
+          <ErpBuilder >
+          </ErpBuilder>
+        </div>
         
-        <ErpBuilder >
-        </ErpBuilder>
       </BrowserRouter>   
   
     )  

@@ -1,0 +1,18 @@
+.home {
+  left: -60px;
+  height: 670px;
+  width: 108%;
+}
+
+.toolbar_logo {
+  margin-left:780px;
+  margin-right: -80px;
+  margin-top: -530px;
+}
+
+.heading{
+   font-family: 'Patua One', cursive;
+   font-size: 50px;
+   text-align: justify;
+   color : #ffffff
+}

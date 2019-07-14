@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import  ReactTable from "react-table";
 import "react-table/react-table.css";
-import { Icon, Label, Menu, Table,Input,Button,Radio,List } from 'semantic-ui-react';
+import {Link}from 'react-router-dom';
+import { Icon, Label, Menu, Table,Input,Button,Radio,List, Segment } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 // Import Hamoni Syncimport Hamoni from "hamoni-sync";
 const ClassroomAttendanceTable = (props) => {
     
     return(
+    <Segment inverted tertiary color = 'blue'>
     <Table celled inverted selectable>
     <Table.Header>
       <Table.Row>
@@ -33,13 +35,14 @@ const ClassroomAttendanceTable = (props) => {
       <Table.Row>
         <Table.HeaderCell />
         <Table.HeaderCell colSpan='4'>
-          <Button onClick ={props.UpdateClassroomTable} floated='right' icon labelPosition='left' primary size='medium'>
+          <Button as = {Link} onClick ={props.UpdateClassroomTable} to ={'/TeacherPage/' + props.teacherInfo.roll} floated='right' icon labelPosition='left' primary size='medium'>
             <Icon name = 'arrow circle right'size = 'large' /> UPDATE ATTENDANCE
           </Button>
         </Table.HeaderCell>
       </Table.Row>
     </Table.Footer>
     </Table>
+    </Segment>
     )
    
 }
@@ -47,7 +50,8 @@ const ClassroomAttendanceTable = (props) => {
 const mapStateToProps = state => {
   return {
     marksList: state.studentMarks,
-    classroom: state.classroom
+    classroom: state.classroom,
+    teacherInfo: state.teacherInfo
   }
 }
 const mapDispatchToProps = dispatch => {

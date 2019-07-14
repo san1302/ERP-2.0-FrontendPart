@@ -9,7 +9,7 @@ import Axios from 'axios';
 import IndividualChatbox from './IndividualChatbox'
 import { Button, Comment, Form ,Grid,Image,Menu,Segment,Icon,Sidebar,List,Label,Input} from 'semantic-ui-react'
 import {Route,Switch}from 'react-router-dom'
-import { async } from 'q';
+import classes from './MessageBox.css'
 
  const images = [
      'https://react.semantic-ui.com/images/avatar/small/helen.jpg',
@@ -33,7 +33,6 @@ import { async } from 'q';
  const socket = openSocket('http://localhost:8080');
  
 class  StudentMessageBox extends Component {
-      
        state = {
              dataMessage : {
                 // to : '',
@@ -50,7 +49,7 @@ class  StudentMessageBox extends Component {
              MessagesDocs : [],
        }
 
-      async componentWillMount()
+      async componentDidMount()
        {
            
         // console.log(localStorage.getItem('token'))
@@ -251,8 +250,8 @@ class  StudentMessageBox extends Component {
                })
            }
 
-        
-
+    
+    
     render (){
         
         return(
@@ -264,20 +263,22 @@ class  StudentMessageBox extends Component {
                  
                    <main>
               <Grid>
-                <Grid.Column width={5} >
+                <Grid.Column width={5}>
                   <List animated verticalAlign='middle' size = 'huge' floated = 'left' link>
                     { this.state.teacherList.map(teacherID => {
                         return teacherID;
                     })}
+                    
+                    <Input placeholder = 'Enter the teacherId/Roll' icon = 'chat' size='mini'></Input>
                 </List>
                 </Grid.Column>
 
                 <Grid.Column stretched width={10}>
-                <Segment raised color = 'blue' compact style = {{height:'50px'}}>
+               
                     <Switch>
-                       <Route path = '/StudentPage/be1026217/StudentMessageBox/:Roll' exact  render = { (Routprops) => <IndividualChatbox {...Routprops} stateOfStudent = {this.state} PrintMessages = {this.PrintMessages} OnChangeMessageHandler = {this.OnChangeMessageHandler}  SendMessage={this.SendMessage} PrintMessage = {this.PrintMessage} socket = {socket}/>}/>
+                       <Route path = '/StudentPage/:roll/StudentMessageBox/:Roll' exact  render = { (Routprops) => <IndividualChatbox {...Routprops} stateOfStudent = {this.state} PrintMessages = {this.PrintMessages} OnChangeMessageHandler = {this.OnChangeMessageHandler}  SendMessage={this.SendMessage} PrintMessage = {this.PrintMessage} socket = {socket}/>}/>
                   </Switch>
-                </Segment>
+
                 </Grid.Column>
             </Grid>
           </main> 

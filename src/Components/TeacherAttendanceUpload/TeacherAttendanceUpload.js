@@ -30,7 +30,9 @@ const TeacherAttendanceUpload = (props) => {
 
     return (
       <div>
-    <Segment inverted>
+    
+    <Segment.Group>
+    <Segment inverted tertiary color ='blue'>
     <Form inverted>
       <Form.Group widths='equal'>
         <Form.Input fluid list='branches' name = "branch" type = "text" label = 'branch' value = {props.InputTeacherClassroom.branch} placeholder='Choose the branch which you want to access' onChange={props.handleTeacherData}/>
@@ -56,11 +58,13 @@ const TeacherAttendanceUpload = (props) => {
         </datalist>
       </Form.Group>
       <Form.Checkbox label='I agree to the Terms and Conditions' />
-       <Button as = {Link} onClick ={props.TeachergetStudentsListForAttendance} to = {props.match.url + '/StudentAttendanceTable'}>Submit</Button>
+       <Button inverted color = 'black' as = {Link} onClick ={props.TeachergetStudentsListForAttendance} to = {props.match.url + '/StudentAttendanceTable'}>Submit</Button>
     </Form>
    </Segment>
      <Route path = "/TeacherPage/:roll/TeacherAttendanceUpload/StudentAttendanceTable" exact  render = { (Routprops) => <ClassroomAttendanceTable {...Routprops} classroomAttendanceTableState = {props.classroomAttendanceTableState} handleChange ={props.handleChange} UpdateClassroomTable = {props.UpdateClassroomTable} InputTeacherClassroom={props.InputTeacherClassroom}/>}/>
+  </Segment.Group>
    </div>
+
      
       
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Label, Menu, Table } from 'semantic-ui-react';
+import { Icon, Label, Menu, Table,Checkbox } from 'semantic-ui-react';
 import {connect} from 'react-redux'
 
 /* const colors = [
@@ -30,7 +30,6 @@ const StudentMarks = (props) => {
 
     return (
       <main>
-      
       <Table color={color} key={color} inverted>
         <Table.Header>
           <Table.Row>

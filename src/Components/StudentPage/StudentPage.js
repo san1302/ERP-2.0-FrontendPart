@@ -4,9 +4,15 @@ import {connect} from 'react-redux';
 //import StudentLayoutPage from '../Layout/studentPageLayout';
 //import {Route,Switch}from 'react-router-dom';
 import openSocket from 'socket.io-client';
+import classes from './StudentPage.css'
 import {Link}from 'react-router-dom';
 import Axios from 'axios';
-import { Button, Comment, Form ,Grid,Image,Menu,Segment,Icon,Sidebar} from 'semantic-ui-react'
+import {Route,Switch}from 'react-router-dom'
+import StudentMarks from '../StudentMarks/StudentMarks'
+import StudentAttendance from '../StudentAttendance/StudentAttendance'
+import StudentMessageBox from '../MessageBox/StudentMessageBox'
+import StudentHomepageAbout from './StudentHomepageAbout'
+import { Button, Comment, Form ,Grid,Image,Menu,Segment,Icon,Sidebar, Label,List,Divider} from 'semantic-ui-react'
 
  const socket = openSocket('http://localhost:8080');
 class  StudentPage extends Component {
@@ -36,19 +42,25 @@ class  StudentPage extends Component {
     render (){
         
         return(
-          <Aux> 
-                 {/* <Switch>
-                     <Route path = {this.props.location.pathname} exact render = { (Routprops) => <StudentLayoutPage {...Routprops} StudentMarks = {this.props.StudentMarks} StudentAttendance = {this.props.StudentAttendance}/>}/>    
-                 </Switch> */}  
-                  <main>
-          
-                <ul>
-                <li> <Link onClick = {this.props.StudentMarks} to = { this.props.location.pathname + '/StudentMarks'}>Marks</Link></li>
-                <li> <Link onClick = {this.props.StudentAttendance} to = { this.props.location.pathname + '/StudentAttendance'}>Attendance</Link></li>
-                <li><Link  to = { this.props.location.pathname + '/StudentMessageBox'}>ChatBox</Link></li>
-                </ul>
-                        
+          <Aux>  
+            <main className = {classes.sidebar}>
+                <List size = 'large'>
+                <List.Item> <Label tag color = 'black' pointing = 'right' size ='big' as = {Link} onClick = {this.props.StudentMarks} to = { '/StudentPage/' + this.props.studentInfo.roll + '/StudentMarks'}><Icon name = 'tasks'/> MARKS</Label></List.Item>
+                <List.Item> <Label tag color = 'black' pointing = 'right' size = 'big' as={Link}  to = { '/StudentPage/' + this.props.studentInfo.roll  + '/StudentMessageBox'}><Icon name = 'chat'/>CHATBOX</Label></List.Item>
+                <List.Item> <Label tag color = 'black' pointing = 'right' size = 'big' as = {Link} onClick = {this.props.StudentAttendance} to = {  '/StudentPage/' + this.props.studentInfo.roll +  '/StudentAttendance'}><Icon name = 'users'/>ATTENDANCE</Label></List.Item>
+                </List>   
+                <Divider vertical  style = {{marginLeft : '150px',marginTop: '-350px',height:'100px'}}>SELECT</Divider>     
             </main>
+             
+           {/* <main className = {classes.studentData}>
+             <Route path = {'/StudentPage/:roll'} exact render = { (Routprops) => <StudentHomepageAbout {...Routprops} />}/>
+             <Switch>
+             <Route path = {'/StudentPage/:roll/StudentMarks'} exact  render = { (Routprops) => <StudentMarks {...Routprops} getStudentMarks = {this.props.getStudentMarks}/>}/>
+             <Route path = {'/StudentPage/:roll/StudentAttendance'} exact render = { (Routprops) => <StudentAttendance {...Routprops} />}/>
+             <Route path = {'/StudentPage/:roll/StudentMessageBox'} render = { (Routprops) => <StudentMessageBox {...Routprops} />}/>
+            </Switch>
+           </main> */}
+            
          </Aux>
 
         )                                  //abhi ismein page reload ke samay roll null ho jata hai and koi bhi ye page access kr sakta hai.

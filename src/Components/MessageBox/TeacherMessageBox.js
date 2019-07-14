@@ -215,7 +215,7 @@ class  TeacherMessageBox extends Component {
           PrintMessagesOnOnline = (data) => {
               
                   
-             var arr = data.messages.map(message => {
+             var arr = data.messages.map((message) => {
                      return (<Comment>
                 <Comment.Avatar as='a' src={(message.roll === this.state.dataMessage.from) ? 'https://react.semantic-ui.com/images/avatar/small/joe.jpg':'https://react.semantic-ui.com/images/avatar/small/christian.jpg'} />
                 <Comment.Content>
@@ -271,11 +271,11 @@ class  TeacherMessageBox extends Component {
                 </Grid.Column>
 
                 <Grid.Column stretched width={10}>
-                <Segment raised color = 'blue' compact style = {{height:'50px'}}>
+                
                     <Switch>
                        <Route path = '/TeacherPage/:roll/TeacherMessageBox/:Roll' exact  render = { (Routprops) => <TeacherIndividualChatbox {...Routprops} stateOfTeacher = {this.state} PrintMessages = {this.PrintMessages} OnChangeMessageHandler = {this.OnChangeMessageHandler}  SendMessage={this.SendMessage} PrintMessage = {this.PrintMessage} socket = {socket}/>}/>
                   </Switch>
-                </Segment>
+                
                 </Grid.Column>
             </Grid>
                 

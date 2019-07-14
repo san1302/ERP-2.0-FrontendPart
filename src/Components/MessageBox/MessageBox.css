@@ -1,0 +1,9 @@
+.StudentMessageBox{
+    overflow:auto;
+    max-height: 500px;
+}
+
+.StudentMessageBoxDesign{
+    margin-left : 300px;
+    width:40%
+}

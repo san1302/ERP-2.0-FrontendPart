@@ -1,0 +1,36 @@
+.toolbar {
+    position: fixed;
+    width: 100%;
+    background: linear-gradient(-45deg, #121213e8, #07419fdd, #020202);
+    height: 135px;
+    top: 0%;
+    box-shadow: 0 0 20px 3px #034abeda;
+
+}
+
+.spacer {
+    flex: 0.98
+}
+
+.toolbar_navigation {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.toolbar_logo {
+    margin-left: 700px;
+    margin-top: -90px;
+}
+
+.toolbar_navigation_items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+}
+
+.toolbar_navigation_items link {
+    color: white
+}

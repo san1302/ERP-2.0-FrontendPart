@@ -4,8 +4,14 @@ import {connect} from 'react-redux';
 //import TeacherLayoutPage from '../Layout/teacherPageLayout';
 import openSocket from 'socket.io-client';
 import {Link}from 'react-router-dom';
+import {Route,Switch}from 'react-router-dom'
 import Axios from 'axios';
-import { Button, Comment, Form } from 'semantic-ui-react'
+import classes from './TeacherPage.css';
+import TeacherMarksUpload from '../TeacherMarksUpload/TeacherMarksUpload';
+import TeacherAttendanceUpload from '../TeacherAttendanceUpload/TeacherAttendanceUpload';
+import TeacherMessageBox from '../MessageBox/TeacherMessageBox';
+import TeacherHomepageAbout from './TeacherHomepageAbout'
+import { Button, Comment, Form ,Icon,Label,List,Divider} from 'semantic-ui-react'
 
 const socket = openSocket('http://localhost:8080');
 class  TeacherPage extends Component {
@@ -35,21 +41,24 @@ class  TeacherPage extends Component {
     render (){
         return(
               <Aux> 
-                 {/* <Switch>
-                     <Route path = {this.props.location.pathname} exact render = { (Routprops) => <TeacherLayoutPage {...Routprops} />}/>    
-                 </Switch> */}
+                
+                <main className = {classes.sidebar}>
+                    <List size = 'large'>
+                    <List.Item> <Label tag color = 'black' pointing = 'right' size = 'big' as={Link}  to = { '/TeacherPage/' + this.props.teacherInfo.roll  + '/TeacherMessageBox'}><Icon name = 'chat'/>CHATBOX</Label></List.Item>
+                    <List.Item> <Label tag color = 'black' pointing = 'right' size ='big' as = {Link}  to = { '/TeacherPage/' + this.props.teacherInfo.roll + '/TeacherMarksUpload'}><Icon name = 'tasks'/>UPLOAD MARKS</Label></List.Item>
+                    <List.Item> <Label tag color = 'black' pointing = 'right' size = 'big' as = {Link} to = { '/TeacherPage/' + this.props.teacherInfo.roll +  '/TeacherAttendanceUpload'}><Icon name = 'users'/>UPLOAD ATTENDANCE</Label></List.Item>
+                    </List>  
+                    <Divider clearing vertical  style = {{marginLeft : '180px',marginTop: '-350px',height:'100px'}}>SELECT</Divider>      
+                </main>
 
-              <ul>
-                    <li>
-                    <Link to = { this.props.location.pathname + '/TeacherMarksUpload'}>UploadMarks</Link>
-                    </li>
-
-                    <li>
-                    <Link to = { this.props.location.pathname + '/TeacherAttendanceUpload'}>Upload Attendence</Link>
-                    </li>
-                     <li><Link  to = { this.props.location.pathname + '/TeacherMessageBox'}>ChatBox</Link></li>
-             </ul>
+           {/*  <main className = {classes.studentData}>
+            <Switch>
             
+             <Route path = {'/TeacherPage/:roll/TeacherMessageBox'} render = { (Routprops) => <TeacherMessageBox {...Routprops} />}/>
+             <Route path = {'/TeacherPage/:roll/TeacherMarksUpload'}  render = { (Routprops) => <TeacherMarksUpload {...Routprops} TeachergetStudentsListForMarks = {this.props.TeachergetStudentsListForMarks}  InputTeacherClassroom = {this.props.state.TeacherClassroom} handleChange = {this.props.OnChangeClassroomMarksHandler} handleTeacherData = {this.props.OnChangeClassroomHandler} classroomMarksTableState ={this.props.state.classroomMarksTableState} UpdateClassroomTable = {this.props.UpdateClassroomTable}/>}/>
+             <Route path = {'/TeacherPage/:roll/TeacherAttendanceUpload'}   render = { (Routprops) => <TeacherAttendanceUpload {...Routprops} TeachergetStudentsListForAttendance = {this.props.TeachergetStudentsListForAttendance}  InputTeacherClassroom ={this.props.state.TeacherClassroom} handleChange = {this.props.OnChangeClassroomAttendanceHandler} handleTeacherData = {this.props.OnChangeClassroomHandler} classroomAttendanceTableState ={this.props.state.classroomAttendanceTableState} UpdateClassroomTable = {this.props.UpdateClassroomTableAboutAttendance}/>}/>
+            </Switch>
+           </main> */}
                  
             </Aux>
 

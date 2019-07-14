@@ -146,6 +146,7 @@ class Layout extends Component  {
          })
          .then(resData => {
              
+            console.log(resData);
               const tokenInfo = {
                   isAuth: true,
                   token: resData.token,
@@ -181,8 +182,9 @@ class Layout extends Component  {
         const activeItem = this.state.activeItem;
          return(
         <div>
+           
           <main className = {classes.toolbar}>
-           <div className = {classes.toolbar_logo}><Image  src = {logo} size = 'big' wrapped ></Image></div>
+           <div className = {classes.toolbar_logo}><Image  src = {logo} size = 'medium' wrapped ></Image></div>
             <nav className = {classes.toolbar_navigation}>
                 {/* <div className = {classes.toolbar_logo}><Link><Image  src = {logo} size = 'small' wrapped ></Image> </Link></div> */}
                 <div className = {classes.spacer}/>
@@ -195,8 +197,8 @@ class Layout extends Component  {
               
           </main>
           <main style = {{marginTop :'300px',marginLeft:'800px'}} >
-              <Grid>
-                <Grid.Column width={5} >
+              <Grid container>
+                <Grid.Column stretched width={5} >
                 <Menu fluid vertical tabular color = 'blue'>
                     <Menu.Item name='Student Login' active={activeItem === 'Student Login'} onClick={this.handleItemClick} icon = {'student'}/>
                     <Menu.Item
@@ -208,7 +210,7 @@ class Layout extends Component  {
                 </Grid.Column>
 
                 <Grid.Column stretched width={10}>
-                <Segment raised color = 'blue' >
+                <Segment raised color = 'blue' size = 'huge' >
                   {
                       this.state.activeItem === 'Student Login' &&   <Route path = "/" exact render = { (Routprops) => <StudentLogin {...Routprops}  InputStudent ={this.state.Student}  handleRollNo = {this.OnChangeStudentRollNoHandler} handlePassword = {this.OnChangeStudentPasswordHandler} LoginSubmit = {this.OnStudentLoginSubmit}/>}/>
                   }
